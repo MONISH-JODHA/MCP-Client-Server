@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-06-24T17:48:29.012992",
+  "operation": "usage_monitoring",
+  "result": [
+    {
+      "error": "HTTP 502: {\"message\": \"Internal server error\"}"
+    },
+    {
+      "error": "HTTP 502: {\"message\": \"Internal server error\"}"
+    },
+    {
+      "error": "HTTP 502: {\"message\": \"Internal server error\"}"
+    }
+  ]
+}

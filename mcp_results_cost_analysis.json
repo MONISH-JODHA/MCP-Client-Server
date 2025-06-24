@@ -1,0 +1,7 @@
+{
+  "timestamp": "2025-06-24T17:48:11.670761",
+  "operation": "cost_analysis",
+  "result": {
+    "error": "HTTP 502: {\"message\": \"Internal server error\"}"
+  }
+}
