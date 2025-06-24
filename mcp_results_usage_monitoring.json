@@ -1,15 +1,151 @@
 {
-  "timestamp": "2025-06-24T17:48:29.012992",
+  "timestamp": "2025-06-24T21:42:17.404273",
   "operation": "usage_monitoring",
   "result": [
     {
-      "error": "HTTP 502: {\"message\": \"Internal server error\"}"
+      "result": {
+        "service": "AWS/EC2",
+        "metric": "CPUUtilization",
+        "datapoints": [],
+        "count": 0
+      }
     },
     {
-      "error": "HTTP 502: {\"message\": \"Internal server error\"}"
+      "result": {
+        "service": "AWS/RDS",
+        "metric": "DatabaseConnections",
+        "datapoints": [
+          {
+            "Timestamp": "2025-06-23T19:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T00:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T05:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T03:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T08:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T13:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T11:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-23T17:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-23T22:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-23T20:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T01:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T06:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T04:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T09:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T14:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T12:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-23T18:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-23T23:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-23T21:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T02:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T07:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T10:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-24T15:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          },
+          {
+            "Timestamp": "2025-06-23T16:12:00+00:00",
+            "Average": 0.0,
+            "Unit": "Count"
+          }
+        ],
+        "count": 24
+      }
     },
     {
-      "error": "HTTP 502: {\"message\": \"Internal server error\"}"
+      "result": {
+        "service": "AWS/S3",
+        "metric": "BucketSizeBytes",
+        "datapoints": [],
+        "count": 0
+      }
     }
   ]
 }

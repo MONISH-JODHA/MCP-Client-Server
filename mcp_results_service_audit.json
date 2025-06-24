@@ -1,7 +1,15 @@
 {
-  "timestamp": "2025-06-24T17:48:29.913877",
+  "timestamp": "2025-06-24T21:42:20.531390",
   "operation": "service_audit",
   "result": {
-    "error": "HTTP 502: {\"message\": \"Internal server error\"}"
+    "result": {
+      "EC2": {
+        "total_instances": 0,
+        "running_instances": 0
+      },
+      "S3": {
+        "error": "An error occurred (AccessDenied) when calling the ListBuckets operation: User: arn:aws:sts::411335221056:assumed-role/mcp-lambda-role/mcp-server is not authorized to perform: s3:ListAllMyBuckets because no identity-based policy allows the s3:ListAllMyBuckets action"
+      }
+    }
   }
 }

@@ -13,20 +13,14 @@
     {
       "Effect": "Allow",
       "Action": [
-        "ce:GetCostAndUsage",
-        "ce:GetCostAndUsageWithResources",
-        "ce:GetCostForecast",
-        "ce:GetReservationUtilization",
-        "ce:GetSavingsPlansPurchaseRecommendation",
-        "ce:GetDimensionValues"
+        "ce:GetCostAndUsage"
       ],
       "Resource": "*"
     },
     {
       "Effect": "Allow",
       "Action": [
-        "cloudwatch:GetMetricStatistics",
-        "cloudwatch:ListMetrics"
+        "cloudwatch:GetMetricStatistics"
       ],
       "Resource": "*"
     },
@@ -34,17 +28,15 @@
       "Effect": "Allow",
       "Action": [
         "ec2:DescribeInstances",
-        "s3:ListAllMyBuckets",
+        "s3:ListBuckets",
         "rds:DescribeDBInstances"
       ],
       "Resource": "*"
     },
     {
       "Effect": "Allow",
-      "Action": [
-        "bedrock:InvokeModel"
-      ],
-      "Resource": "arn:aws:bedrock:*::foundation-model/amazon.titan-text-premier-v1:0"
+      "Action": "bedrock:InvokeModel",
+      "Resource": "arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-text-premier-v1:0"
     }
   ]
 }

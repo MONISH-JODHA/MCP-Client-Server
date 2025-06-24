@@ -6,9 +6,34 @@ from typing import Dict, Any, List
 class MCPServer:
     def __init__(self, aws_profile: str = None):
         self.session = boto3.Session(profile_name=aws_profile)
-        self.ce_client = self.session.client('ce')
-        self.cloudwatch = self.session.client('cloudwatch')
-        self.bedrock = self.session.client('bedrock-runtime')
+        self._ce_client = None
+        self._cloudwatch_client = None
+        self._bedrock_client = None
+        self._service_clients = {}
+
+    @property
+    def ce_client(self):
+        if not self._ce_client:
+            self._ce_client = self.session.client('ce')
+        return self._ce_client
+
+    @property
+    def cloudwatch(self):
+        if not self._cloudwatch_client:
+            self._cloudwatch_client = self.session.client('cloudwatch')
+        return self._cloudwatch_client
+
+    @property
+    def bedrock(self):
+        if not self._bedrock_client:
+            self._bedrock_client = self.session.client('bedrock-runtime')
+        return self._bedrock_client
+
+    def get_service_client(self, service_name: str):
+        service_name_lower = service_name.lower()
+        if service_name_lower not in self._service_clients:
+            self._service_clients[service_name_lower] = self.session.client(service_name_lower)
+        return self._service_clients[service_name_lower]
         
     def handle_request(self, request: Dict[str, Any]) -> Dict[str, Any]:
         """Process MCP requests and return metadata"""
@@ -28,7 +53,8 @@ class MCPServer:
         try:
             return {'result': handlers[method](params)}
         except Exception as e:
-            return {'error': str(e)}
+            # Added more context to the error
+            return {'error': f"An error occurred in method '{method}': {str(e)}"}
     
     def _get_cost_data(self, params: Dict) -> Dict:
         """Retrieve AWS cost data"""
@@ -66,11 +92,17 @@ class MCPServer:
                 Statistics=['Average']
             )
             
+            # Fix: Convert datetime objects to ISO strings for JSON serialization
+            datapoints = response['Datapoints']
+            for dp in datapoints:
+                if 'Timestamp' in dp:
+                    dp['Timestamp'] = dp['Timestamp'].isoformat()
+
             return {
                 'service': service,
                 'metric': metric,
-                'datapoints': response['Datapoints'],
-                'count': len(response['Datapoints'])
+                'datapoints': datapoints,
+                'count': len(datapoints)
             }
         except Exception as e:
             return {
@@ -87,7 +119,7 @@ class MCPServer:
         
         for service in services:
             try:
-                client = self.session.client(service.lower())
+                client = self.get_service_client(service)
                 if service == 'EC2':
                     instances = client.describe_instances()
                     insights[service] = {
@@ -114,9 +146,11 @@ class MCPServer:
                     'maxTokenCount': 500,
                     'temperature': 0.7
                 }
-            })
+            }),
+            contentType="application/json",
+            accept="application/json"
         )
         
         result = json.loads(response['body'].read())
-        return {'analysis': result['content'][0]['text']}
-
+        # Fix: Correctly parse the response for the Titan model
+        return {'analysis': result['results'][0]['outputText']}

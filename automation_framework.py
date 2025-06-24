@@ -20,19 +20,17 @@ class MCPAutomationFramework:
         return result
     
     def run_usage_monitoring(self):
-        """Automated usage monitoring"""
-        metrics = self.config.get('usage_metrics', [
-            {'service': 'AWS/EC2', 'metric': 'CPUUtilization'},
-            {'service': 'AWS/RDS', 'metric': 'DatabaseConnections'}
-        ])
+        """Automated usage monitoring. Returns a list of results."""
+        metrics = self.config.get('usage_metrics', [])
         
-        results = []
+        results_list = []
         for metric_config in metrics:
             result = self.client.get_usage_metrics(**metric_config)
-            results.append(result)
+            results_list.append(result)
         
-        self._store_result('usage_monitoring', results)
-        return results
+        # This operation's result is the list itself.
+        self._store_result('usage_monitoring', results_list)
+        return results_list # Always return the list of results
     
     def run_service_audit(self):
         """Automated service insights audit"""
@@ -43,7 +41,6 @@ class MCPAutomationFramework:
     
     def run_ai_analysis(self):
         """Run AI-powered cost optimization analysis"""
-        # Get recent cost data
         cost_result = self.client.get_cost_analysis(days=7)
         
         if 'result' in cost_result:
@@ -53,9 +50,11 @@ class MCPAutomationFramework:
             self._store_result('ai_analysis', ai_result)
             return ai_result
         else:
-            return {'error': 'Failed to get cost data for AI analysis'}
+            error_result = {'error': 'Failed to get cost data for AI analysis', 'details': cost_result.get('error')}
+            self._store_result('ai_analysis', error_result)
+            return error_result
     
-    def _store_result(self, operation: str, result: Dict[str, Any]):
+    def _store_result(self, operation: str, result: Any):
         """Store automation results"""
         entry = {
             'timestamp': datetime.now().isoformat(),
@@ -64,7 +63,6 @@ class MCPAutomationFramework:
         }
         self.results.append(entry)
         
-        # Optional: Write to file
         if self.config.get('log_results', True):
             with open(f'mcp_results_{operation}.json', 'w') as f:
                 json.dump(entry, f, indent=2)
@@ -81,9 +79,10 @@ class MCPAutomationFramework:
             time.sleep(60)
     
     def run_once(self) -> Dict[str, Any]:
-        """Run all operations once"""
-        return {
+        """Run all operations once and return a dictionary of their results."""
+        results = {
             'cost_analysis': self.run_cost_analysis(),
             'usage_monitoring': self.run_usage_monitoring(),
             'service_audit': self.run_service_audit()
         }
+        return results
